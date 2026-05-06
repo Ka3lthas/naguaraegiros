@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NaguaraeGiros Pro | Transferencias Premium</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #ff4000;
+      --success: #23b568;
+      --danger: #ef4444;
+      --bg-light: #f4f7f6;
+      --card-light: #ffffff;
+      --text-light: #2d3436;
+      --input-border: #dfe6e9;
+      --bg-dark: #0f172a;
+      --card-dark: #1e293b;
+      --text-dark: #f1f5f9;
+      --shadow: 0 20px 40px rgba(0,0,0,0.10);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-light);
+      transition: background-color .25s ease, color .25s ease;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    body.dark-mode {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 560px;
+      background: var(--card-light);
+      border-radius: 2rem;
+      padding: 1.35rem;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    body.dark-mode .app-container {
+      background: var(--card-dark);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.38);
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .theme-switch {
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: var(--primary);
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: rgba(255, 64, 0, 0.10);
+      transition: transform .2s ease, background-color .2s ease;
+      flex: 0 0 auto;
+    }
+
+    .theme-switch:active { transform: scale(0.96); }
+
+    .rate-badge {
+      margin-left: auto;
+      background: rgba(255, 64, 0, 0.10);
+      color: var(--primary);
+      padding: .65rem .95rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: .84rem;
+      text-align: right;
+      line-height: 1.1;
+      min-width: 120px;
+    }
+
+    .rate-alert {
+      margin: .75rem 0 0;
+      padding: .8rem .95rem;
+      border-radius: 1rem;
+      background: rgba(239, 68, 68, .10);
+      color: var(--danger);
+      font-size: .82rem;
+      font-weight: 600;
+      display: none;
+    }
+
+    .header { text-align: center; margin: 1rem 0 1.35rem; }
+
+    .logo-area {
+      background: linear-gradient(135deg, var(--primary), #ff7a00);
+      color: white;
+      padding: 1.25rem 1rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 20px rgba(255, 64, 0, 0.25);
+    }
+
+    .logo-area h1 { font-size: 1.5rem; letter-spacing: 1px; }
+    .logo-area p { font-size: .8rem; opacity: .9; margin-top: .15rem; }
+
+    .section-title {
+      font-size: .98rem;
+      margin-bottom: .9rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+      font-weight: 700;
+    }
+
+    .mini-tag {
+      font-size: .72rem;
+      color: var(--primary);
+      background: rgba(255, 64, 0, 0.10);
+      padding: .25rem .6rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .input-group { margin-bottom: 1rem; position: relative; }
+
+    .input-group label {
+      display: block;
+      font-size: .82rem;
+      font-weight: 700;
+      margin-bottom: .45rem;
+      opacity: .85;
+    }
+
+    .input-wrapper { position: relative; }
+
+    .input-wrapper i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary);
+      pointer-events: none;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 1rem 1rem 1rem 2.85rem;
+      border: 2px solid var(--input-border);
+      border-radius: 1rem;
+      font-size: 1rem;
+      font-family: inherit;
+      background: transparent;
+      color: inherit;
+      outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(255, 64, 0, 0.08);
+    }
+
+    textarea { resize: none; }
+
+    .magic-paste-area {
+      height: 56px;
+      background: #fff8f5;
+      border: 2px dashed var(--primary);
+      color: var(--primary);
+      text-align: center;
+      padding: 10px !important;
+      overflow: hidden;
+      font-weight: 700;
+      font-size: .82rem;
+    }
+
+    body.dark-mode .magic-paste-area { background: #1b2436; }
+
+    .helper-text {
+      font-size: .75rem;
+      opacity: .72;
+      margin-top: .35rem;
+      line-height: 1.35;
+    }
+
+    .receipt-card {
+      background: linear-gradient(135deg, #f8f9fa 0%, #eef2f7 100%);
+      border-radius: 1.5rem;
+      padding: 1.2rem;
+      margin: 1.25rem 0;
+      border: 1px dashed rgba(148, 163, 184, .55);
+    }
+
+    body.dark-mode .receipt-card {
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(255,255,255,0.12);
+    }
+
+    .receipt-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: .9rem;
+    }
+
+    .receipt-title { font-weight: 800; font-size: .92rem; }
+    .receipt-subtitle { font-size: .75rem; opacity: .72; margin-top: .15rem; }
+
+    .status-pill {
+      font-size: .72rem;
+      font-weight: 800;
+      padding: .35rem .6rem;
+      border-radius: 999px;
+      background: rgba(35, 181, 104, 0.12);
+      color: var(--success);
+      white-space: nowrap;
+    }
+
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: .75rem;
+      font-size: .92rem;
+    }
+
+    .receipt-row span:last-child { text-align: right; }
+
+    .receipt-row.total {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(148, 163, 184, .25);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--success);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 1.05rem;
+      border-radius: 1rem;
+      border: none;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      transition: transform .2s ease, opacity .2s ease, background-color .2s ease;
+      user-select: none;
+    }
+
+    .btn:active { transform: scale(0.985); }
+
+    .btn-whatsapp { background: var(--success); color: white; margin-top: 1rem; }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--input-border);
+      color: inherit;
+      font-size: .82rem;
+      padding: .7rem;
+    }
+
+    .btn-danger {
+      border-color: rgba(239, 68, 68, .55);
+      color: var(--danger);
+    }
+
+    .btn-secondary {
+      border-color: rgba(59, 130, 246, .55);
+      color: #3b82f6;
+    }
+
+    .bank-badge {
+      display: inline-block;
+      margin-top: .5rem;
+      font-size: .75rem;
+      background: #007bff;
+      color: white;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: none;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .history {
+      margin-top: 1.4rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(148, 163, 184, .18);
+    }
+
+    .history-list {
+      display: grid;
+      gap: .75rem;
+      margin-top: .75rem;
+    }
+
+    .history-item {
+      padding: .9rem 1rem;
+      border-radius: 1rem;
+      background: rgba(148, 163, 184, .08);
+      display: flex;
+      flex-direction: column;
+      gap: .7rem;
+    }
+
+    .history-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .history-item strong { display: block; font-size: .92rem; }
+    .history-item span { display: block; font-size: .75rem; opacity: .78; margin-top: .15rem; }
+
+    .history-amount { font-weight: 800; color: var(--success); white-space: nowrap; }
+
+    .history-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: .75rem;
+      flex-wrap: wrap;
+    }
+
+    .history-toggle {
+      border: none;
+      background: transparent;
+      color: var(--primary);
+      font-family: inherit;
+      font-size: .8rem;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .history-details {
+      display: none;
+      padding-top: .15rem;
+      border-top: 1px solid rgba(148, 163, 184, .18);
+      font-size: .8rem;
+      line-height: 1.5;
+      opacity: .92;
+    }
+
+    .history-details.show { display: block; }
+    .history-details div { margin-top: .2rem; }
+
+    .history-empty {
+      font-size: .82rem;
+      opacity: .72;
+      text-align: center;
+      padding: .8rem 0;
+    }
+
+    footer {
+      text-align: center;
+      font-size: .75rem;
+      margin-top: 1.6rem;
+      opacity: .62;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 480px) {
+      .app-container { padding: 1rem; border-radius: 1.5rem; }
+      .logo-area h1 { font-size: 1.28rem; }
+      .receipt-row { font-size: .88rem; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .rate-badge { min-width: 104px; font-size: .8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <div class="top-bar">
+      <div class="theme-switch" onclick="toggleTheme()" title="Cambiar tema">
+        <i class="fas fa-moon" id="theme-icon"></i>
+      </div>
+      <div class="rate-badge" id="badge-tasa">Cargando tasa...</div>
+    </div>
+    <div class="rate-alert" id="rate-alert">
+      No fue posible cargar la tasa del día, por favor verifica tu conexión a internet e inténtalo de nuevo.
+    </div>
+
+    <div class="header">
+      <div class="logo-area">
+        <h1>NAGUARAEGIROS</h1>
+        <p>Fast & Secure Remittances</p>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <span><i class="fas fa-calculator" style="color: var(--primary);"></i> Cotización</span>
+      <span class="mini-tag">COP → VES / USD</span>
+    </div>
+
+    <div class="input-group">
+      <label>ENVÍAS DESDE COLOMBIA (COP)</label>
+      <div class="input-wrapper">
+        <i class="fas fa-wallet"></i>
+        <input type="number" id="pesos" placeholder="0.00" min="0" step="0.01" inputmode="decimal">
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label>RECIBEN EN VENEZUELA (VES)</label>
+      <div class="input-wrapper">
+        <i class="fas fa-university"></i>
+        <input type="number" id="bolivares" placeholder="0.00" min="0" step="0.01" inputmode="decimal">
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label>EQUIVALENTE EN DÓLARES (USD)</label>
+      <div class="input-wrapper">
+        <i class="fas fa-dollar-sign"></i>
+        <input type="number" id="dolares" placeholder="0.00" min="0" step="0.01" inputmode="decimal">
+      </div>
+    </div>
+
+    <div class="receipt-card">
+      <div class="receipt-top">
+        <div>
+          <div class="receipt-title">Resumen de giro</div>
+          <div class="receipt-subtitle" id="resumen-fecha">Esperando cotización...</div>
+        </div>
+        <div class="status-pill">Operación lista</div>
+      </div>
+
+      <div class="receipt-row">
+        <span>Tasa de Cambio</span>
+        <span id="resumen-tasa">0.00 Bs/COP</span>
+      </div>
+      <div class="receipt-row">
+        <span>Comisión</span>
+        <span style="color: var(--success); font-weight: 700;">¡GRATIS!</span>
+      </div>
+      <div class="receipt-row">
+        <span>Equivalente USD</span>
+        <span id="resumen-usd">0.00 USD</span>
+      </div>
+      <div class="receipt-row total">
+        <span>Reciben aprox</span>
+        <span id="resumen-final">0.00 Bs</span>
+      </div>
+    </div>
+
+    <button class="btn btn-outline" onclick="reiniciar()">
+      <i class="fas fa-sync-alt"></i> Limpiar Todo
+    </button>
+
+    <div style="margin-top: 1.7rem;">
+      <div class="section-title">
+        <span><i class="fas fa-user-check" style="color: var(--primary);"></i> Datos del Beneficiario</span>
+        <span class="mini-tag">Auto-fill</span>
+      </div>
+
+      <div class="input-group">
+        <textarea id="magicPaste" class="magic-paste-area" placeholder="📋 TOQUE AQUÍ Y PEGUE LOS DATOS" oninput="procesarPegado(this.value)"></textarea>
+        <div class="helper-text">Pega nombre, cédula, cuenta y teléfono; la app intentará organizarlos automáticamente.</div>
+      </div>
+
+      <div class="input-group">
+        <input type="text" id="titular" placeholder="Nombre completo" style="padding-left: 1rem;">
+      </div>
+
+      <div class="input-group">
+        <input type="text" id="cedula" placeholder="Cédula de identidad" style="padding-left: 1rem;" inputmode="numeric">
+      </div>
+
+      <div class="input-group">
+        <input type="text" id="cuenta" placeholder="Número de cuenta (20 dígitos)" style="padding-left: 1rem;" inputmode="numeric" oninput="detectBank(this.value)">
+        <span id="bank-name" class="bank-badge"></span>
+      </div>
+
+      <div class="input-group">
+        <input type="text" id="telefono" placeholder="Teléfono de Pago Móvil" style="padding-left: 1rem;" inputmode="numeric">
+      </div>
+
+      <select id="frecuentes-select" style="padding-left: 1rem; margin-bottom: 1rem;">
+        <option value="">📇 Contactos guardados</option>
+      </select>
+
+      <div class="grid-2">
+        <button class="btn btn-outline btn-secondary" onclick="guardarFrecuente()">
+          <i class="fas fa-save"></i> Guardar
+        </button>
+        <button class="btn btn-outline btn-danger" onclick="eliminarFrecuente()">
+          <i class="fas fa-trash"></i> Borrar
+        </button>
+      </div>
+
+      <button class="btn btn-whatsapp" onclick="validarYEnviar()">
+        <i class="fab fa-whatsapp"></i> ENVIAR SOLICITUD
+      </button>
+
+      <div class="history">
+        <div class="section-title" style="margin-bottom: .5rem;">
+          <span><i class="fas fa-clock" style="color: var(--primary);"></i> Últimas solicitudes</span>
+          <span class="mini-tag">Local</span>
+        </div>
+        <div id="history-list" class="history-list"></div>
+      </div>
+    </div>
+
+    <footer>
+      <p>NaguaraeGiros © 2026</p>
+      <p><i class="fas fa-shield-alt"></i> Transacción Protegida</p>
+    </footer>
+  </div>
+
+  <script>
+    const CONFIG = {
+      whatsappNumber: '573136041708',
+      tasaUrl: 'https://raw.githubusercontent.com/Ka3lthas/tasa-cambio/main/tasa.json',
+      storageThemeKey: 'nag_theme_v5',
+      storageContactsKey: 'nag_frecuentes_v5',
+      storageHistoryKey: 'nag_history_v5',
+      maxHistory: 5
+    };
+
+    let tasaDia = 0;
+    let tasaDolar = 0;
+    let isUpdating = false;
+    let contactos = [];
+    let history = [];
+
+    const bancos = {
+      '0102': 'B. de Venezuela',
+      '0105': 'Mercantil',
+      '0108': 'Provincial',
+      '0134': 'Banesco',
+      '0163': 'Tesoro',
+      '0172': 'Bancamiga',
+      '0175': 'Bicentenario'
+    };
+
+    function formatoNumero(valor, decimales = 2) {
+      const n = Number(valor);
+      return new Intl.NumberFormat('es-CO', {
+        minimumFractionDigits: decimales,
+        maximumFractionDigits: decimales
+      }).format(Number.isFinite(n) ? n : 0);
+    }
+
+    function soloDigitos(texto) {
+      return String(texto || '').replace(/\D/g, '');
+    }
+
+    function limpiarTexto(texto) {
+      return String(texto || '').trim().replace(/\s+/g, ' ');
+    }
+
+    function getNumber(valor) {
+      const n = parseFloat(String(valor).replace(/,/g, '').trim());
+      return Number.isFinite(n) ? n : 0;
+    }
+
+    function safeStorageGet(key, fallback = null) {
+      try {
+        const value = localStorage.getItem(key);
+        return value === null ? fallback : value;
+      } catch (e) {
+        return fallback;
+      }
+    }
+
+    function safeStorageSet(key, value) {
+      try {
+        localStorage.setItem(key, value);
+      } catch (e) {}
+    }
+
+    function nowLabel() {
+      return new Date().toLocaleString('es-CO', { dateStyle: 'medium', timeStyle: 'short' });
+    }
+
+    function aplicarTemaGuardado() {
+      const savedTheme = safeStorageGet(CONFIG.storageThemeKey, 'light');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        const icon = document.getElementById('theme-icon');
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+      }
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      const icon = document.getElementById('theme-icon');
+      const isDark = document.body.classList.contains('dark-mode');
+
+      if (isDark) {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+        safeStorageSet(CONFIG.storageThemeKey, 'dark');
+      } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+        safeStorageSet(CONFIG.storageThemeKey, 'light');
+      }
+    }
+
+    function detectBank(valor) {
+      const b = document.getElementById('bank-name');
+      const p = soloDigitos(valor).substring(0, 4);
+
+      if (bancos[p]) {
+        b.textContent = '🏦 ' + bancos[p];
+        b.style.display = 'inline-block';
+      } else {
+        b.style.display = 'none';
+        b.textContent = '';
+      }
+    }
+
+    function setRates(newTasaDia, newTasaDolar) {
+      const tasaDiaNum = Number(newTasaDia);
+      const tasaDolarNum = Number(newTasaDolar);
+
+      if (!Number.isFinite(tasaDiaNum) || tasaDiaNum <= 0) return false;
+      if (!Number.isFinite(tasaDolarNum) || tasaDolarNum <= 0) return false;
+
+      tasaDia = tasaDiaNum;
+      tasaDolar = tasaDolarNum;
+      document.getElementById('rate-alert').style.display = 'none';
+      actualizarResumen();
+      return true;
+    }
+
+    function cargarTasas() {
+      tasaDia = 0;
+      tasaDolar = 0;
+      actualizarResumen();
+
+      fetch(CONFIG.tasaUrl, { cache: 'no-store' })
+        .then(res => {
+          if (!res.ok) throw new Error('No se pudo cargar la tasa');
+          return res.json();
+        })
+        .then(data => {
+          const ok = setRates(Number(data.tasaDia), Number(data.tasaDolar));
+          if (ok) {
+            document.getElementById('badge-tasa').textContent = `Tasa: ${formatoNumero(tasaDia)} Bs`;
+          } else {
+            throw new Error('Tasa inválida');
+          }
+        })
+        .catch(() => {
+          document.getElementById('badge-tasa').textContent = 'Tasa no disponible';
+          document.getElementById('rate-alert').style.display = 'block';
+        });
+    }
+
+    function actualizarResumen() {
+      const bs = getNumber(document.getElementById('bolivares').value);
+      const usd = getNumber(document.getElementById('dolares').value);
+      const badge = document.getElementById('badge-tasa');
+      const resumenTasa = document.getElementById('resumen-tasa');
+      const resumenFinal = document.getElementById('resumen-final');
+      const resumenUsd = document.getElementById('resumen-usd');
+      const resumenFecha = document.getElementById('resumen-fecha');
+
+      resumenFecha.textContent = `Actualizado: ${nowLabel()}`;
+      resumenUsd.textContent = `${formatoNumero(usd)} USD`;
+
+      if (tasaDia > 0 && tasaDolar > 0) {
+        badge.textContent = `Tasa: ${formatoNumero(tasaDia)} Bs`;
+        resumenTasa.textContent = `${formatoNumero(tasaDia)} Bs/COP`;
+      } else {
+        badge.textContent = 'Tasa no disponible';
+        resumenTasa.textContent = 'Sin tasa';
+      }
+
+      resumenFinal.textContent = `${formatoNumero(bs)} Bs`;
+    }
+
+    function actualizarConversion(desde) {
+      if (isUpdating) return;
+
+      const pesosEl = document.getElementById('pesos');
+      const bolivaresEl = document.getElementById('bolivares');
+      const dolaresEl = document.getElementById('dolares');
+
+      const pesos = getNumber(pesosEl.value);
+      const bolivares = getNumber(bolivaresEl.value);
+      const dolares = getNumber(dolaresEl.value);
+
+      if (!(tasaDia > 0) || !(tasaDolar > 0)) {
+        actualizarResumen();
+        return;
+      }
+
+      isUpdating = true;
+
+      if (desde === 'pesos') {
+        const nuevoBolivares = pesos / tasaDia;
+        const nuevoDolares = nuevoBolivares / tasaDolar;
+        bolivaresEl.value = nuevoBolivares > 0 ? nuevoBolivares.toFixed(2) : '';
+        dolaresEl.value = nuevoDolares > 0 ? nuevoDolares.toFixed(2) : '';
+      }
+
+      if (desde === 'bolivares') {
+        const nuevosPesos = bolivares * tasaDia;
+        const nuevosDolares = bolivares / tasaDolar;
+        pesosEl.value = nuevosPesos > 0 ? nuevosPesos.toFixed(2) : '';
+        dolaresEl.value = nuevosDolares > 0 ? nuevosDolares.toFixed(2) : '';
+      }
+
+      if (desde === 'dolares') {
+        const nuevosBolivares = dolares * tasaDolar;
+        const nuevosPesos = nuevosBolivares * tasaDia;
+        bolivaresEl.value = nuevosBolivares > 0 ? nuevosBolivares.toFixed(2) : '';
+        pesosEl.value = nuevosPesos > 0 ? nuevosPesos.toFixed(2) : '';
+      }
+
+      isUpdating = false;
+      actualizarResumen();
+    }
+
+    function limpiarSimbolos(texto) {
+      return String(texto || '').replace(/[.,\/\-_*]/g, '').trim();
+    }
+
+    function procesarPegado(texto) {
+      if (!texto) return;
+
+      const lineas = texto.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+      let nombreAsignado = false;
+
+      lineas.forEach(linea => {
+        const soloNumeros = soloDigitos(linea);
+        const lower = linea.toLowerCase();
+
+        if (soloNumeros.length === 20) {
+          document.getElementById('cuenta').value = soloNumeros;
+          detectBank(soloNumeros);
+          return;
+        }
+
+        if (
+          lower.includes('móvil') ||
+          lower.includes('movil') ||
+          (soloNumeros.length >= 10 && soloNumeros.length <= 13)
+        ) {
+          document.getElementById('telefono').value = soloNumeros;
+          return;
+        }
+
+        if (soloNumeros.length >= 7 && soloNumeros.length <= 10) {
+          document.getElementById('cedula').value = soloNumeros;
+          return;
+        }
+
+        if (
+          !nombreAsignado &&
+          /[a-zA-ZÀ-ÿ]/.test(linea) &&
+          !/pago|movil|móvil|cuenta|cedula|cédula/i.test(linea)
+        ) {
+          document.getElementById('titular').value = limpiarTexto(linea);
+          nombreAsignado = true;
+        }
+      });
+
+      setTimeout(() => {
+        document.getElementById('magicPaste').value = '';
+      }, 500);
+    }
+
+    function pushHistory(entry) {
+      history = getHistory();
+      history.unshift(entry);
+      history = history.slice(0, CONFIG.maxHistory);
+      safeStorageSet(CONFIG.storageHistoryKey, JSON.stringify(history));
+      renderHistory();
+    }
+
+    function getHistory() {
+      const raw = safeStorageGet(CONFIG.storageHistoryKey, '[]');
+      try {
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function escapeHtml(text) {
+      return String(text || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function toggleHistoryDetails(index) {
+      const panel = document.getElementById(`history-details-${index}`);
+      const button = document.getElementById(`history-toggle-${index}`);
+      if (!panel || !button) return;
+      panel.classList.toggle('show');
+      button.textContent = panel.classList.contains('show') ? 'Ver menos' : 'Ver más';
+    }
+
+    function renderHistory() {
+      const list = document.getElementById('history-list');
+      history = getHistory();
+
+      if (!history.length) {
+        list.innerHTML = '<div class="history-empty">Aún no hay solicitudes registradas.</div>';
+        return;
+      }
+
+      list.innerHTML = history.map((item, index) => `
+        <div class="history-item">
+          <div class="history-head">
+            <div>
+              <strong>${escapeHtml(item.nombre || 'Sin nombre')}</strong>
+              <span>${escapeHtml(item.fecha || '')}</span>
+            </div>
+            <div class="history-amount">${formatoNumero(item.pesos || 0)} COP</div>
+          </div>
+
+          <div class="history-actions">
+            <span style="font-size:.78rem; opacity:.78;">
+              ${formatoNumero(item.bolivares || 0)} Bs · ${formatoNumero(item.usd || 0)} USD
+            </span>
+            <button class="history-toggle" id="history-toggle-${index}" onclick="toggleHistoryDetails(${index})">Ver más</button>
+          </div>
+
+          <div class="history-details" id="history-details-${index}">
+            <div><strong>Beneficiario:</strong> ${escapeHtml(item.nombre || 'N/A')}</div>
+            <div><strong>Cédula:</strong> ${escapeHtml(item.cedula || 'N/A')}</div>
+            <div><strong>Cuenta:</strong> ${escapeHtml(item.cuenta || 'N/A')}</div>
+            <div><strong>Teléfono:</strong> ${escapeHtml(item.telefono || 'N/A')}</div>
+            <div><strong>Tasa usada:</strong> ${formatoNumero(item.tasaDia || 0)} Bs/COP</div>
+            <div><strong>Envía:</strong> ${formatoNumero(item.pesos || 0)} COP</div>
+            <div><strong>Reciben aprox:</strong> ${formatoNumero(item.bolivares || 0)} Bs</div>
+            <div><strong>Equivalente USD:</strong> ${formatoNumero(item.usd || 0)} USD</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function validarYEnviar() {
+      const pesos = getNumber(document.getElementById('pesos').value);
+      const bolivares = getNumber(document.getElementById('bolivares').value);
+      const dolares = getNumber(document.getElementById('dolares').value);
+
+      const t = limpiarSimbolos(document.getElementById('titular').value);
+      const c = soloDigitos(document.getElementById('cedula').value);
+      const cta = soloDigitos(document.getElementById('cuenta').value);
+      const tel = soloDigitos(document.getElementById('telefono').value);
+
+      if (!t) return alert('Falta el nombre del beneficiario.');
+      if (pesos <= 0) return alert('Ingresa un monto válido en pesos colombianos.');
+      if (!(tasaDia > 0) || !(tasaDolar > 0)) return alert('La tasa todavía no está disponible. Intenta de nuevo en unos segundos.');
+
+      if (cta && cta.length !== 20) return alert('La cuenta debe tener 20 dígitos.');
+      if (tel && (tel.length < 10 || tel.length > 13)) return alert('El teléfono debe tener entre 10 y 13 dígitos.');
+      if (c && (c.length < 6 || c.length > 12)) return alert('La cédula parece tener un formato inválido.');
+
+      const fecha = nowLabel();
+      const msj =
+`*NAGUARAEGIROS - SOLICITUD*
+----------------------------
+*Fecha:* ${fecha}
+*Envía:* ${formatoNumero(pesos)} COP
+*Recibe:* ${formatoNumero(bolivares)} Bs
+*Tasa usada:* ${formatoNumero(tasaDia)} Bs/COP
+----------------------------
+*Beneficiario:* ${t}
+*Cédula:* ${c || 'N/A'}
+*Cuenta:* ${cta || 'N/A'}
+*Teléfono:* ${tel || 'N/A'}
+----------------------------
+_Solicitud generada desde la App NaguaraeGiros._`;
+
+      pushHistory({
+        nombre: t,
+        cedula: c,
+        cuenta: cta,
+        telefono: tel,
+        pesos,
+        bolivares,
+        usd: dolares,
+        tasaDia,
+        fecha
+      });
+
+      const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(msj)}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    function getContactos() {
+      const raw = safeStorageGet(CONFIG.storageContactsKey, '[]');
+      try {
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveContactos() {
+      safeStorageSet(CONFIG.storageContactsKey, JSON.stringify(contactos));
+    }
+
+    function actualizarLista() {
+      contactos = getContactos();
+
+      const s = document.getElementById('frecuentes-select');
+      s.innerHTML = '<option value="">📇 Contactos guardados</option>';
+
+      contactos.forEach(item => {
+        const o = document.createElement('option');
+        o.value = item.id;
+        o.textContent = item.cta ? `${item.t} • ${item.cta.slice(-4)}` : item.t;
+        s.appendChild(o);
+      });
+    }
+
+    function guardarFrecuente() {
+      const d = {
+        t: limpiarTexto(document.getElementById('titular').value),
+        c: soloDigitos(document.getElementById('cedula').value),
+        cta: soloDigitos(document.getElementById('cuenta').value),
+        tel: soloDigitos(document.getElementById('telefono').value)
+      };
+
+      if (!d.t || !d.cta) return alert('Nombre y cuenta son obligatorios.');
+      if (d.cta.length !== 20) return alert('La cuenta debe tener 20 dígitos.');
+
+      contactos = getContactos();
+      const index = contactos.findIndex(item => item.cta === d.cta);
+
+      const registro = {
+        id: index >= 0 ? contactos[index].id : (window.crypto && crypto.randomUUID ? crypto.randomUUID() : String(Date.now())),
+        t: d.t,
+        c: d.c,
+        cta: d.cta,
+        tel: d.tel,
+        updatedAt: new Date().toISOString()
+      };
+
+      if (index >= 0) {
+        contactos[index] = registro;
+      } else {
+        contactos.push(registro);
+      }
+
+      saveContactos();
+      actualizarLista();
+      alert('Contacto guardado.');
+    }
+
+    document.getElementById('frecuentes-select').onchange = (e) => {
+      if (!e.target.value) return;
+
+      contactos = getContactos();
+      const d = contactos.find(item => item.id === e.target.value);
+      if (!d) return;
+
+      document.getElementById('titular').value = d.t || '';
+      document.getElementById('cedula').value = d.c || '';
+      document.getElementById('cuenta').value = d.cta || '';
+      document.getElementById('telefono').value = d.tel || '';
+      detectBank(d.cta || '');
+    };
+
+    function eliminarFrecuente() {
+      const s = document.getElementById('frecuentes-select').value;
+      if (!s) return;
+
+      contactos = getContactos().filter(item => item.id !== s);
+      saveContactos();
+      actualizarLista();
+      reiniciar();
+    }
+
+    function reiniciar() {
+      ['pesos', 'bolivares', 'dolares', 'titular', 'cedula', 'cuenta', 'telefono', 'magicPaste'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      document.getElementById('bank-name').style.display = 'none';
+      document.getElementById('bank-name').textContent = '';
+      document.getElementById('frecuentes-select').value = '';
+      actualizarResumen();
+    }
+
+    function bindInputs() {
+      document.getElementById('pesos').addEventListener('input', () => actualizarConversion('pesos'));
+      document.getElementById('bolivares').addEventListener('input', () => actualizarConversion('bolivares'));
+      document.getElementById('dolares').addEventListener('input', () => actualizarConversion('dolares'));
+    }
+
+    function init() {
+      aplicarTemaGuardado();
+      bindInputs();
+      cargarTasas();
+      actualizarLista();
+      renderHistory();
+      actualizarResumen();
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
